@@ -39,11 +39,8 @@ npx expo start
 │   ├── _layout.js              # Root layout (Stack navigator)
 │   ├── index.js                # Home screen
 │   └── about.js                # Example second screen
-├── components/
-│   └── HelloWorld.js           # Simple example component
 ├── assets/                     # App icon, splash, adaptive icon
-├── tests/
-│   └── components.test.js      # Component tests
+├── tests/                      # Add your tests here
 ├── .github/
 │   ├── workflows/
 │   │   ├── ci.yml              # Lint, test, audit
@@ -70,7 +67,7 @@ npx expo start
 - **CD Pipeline** -- one-click deploy to App Store and Play Store via EAS Build
 - **Cloud builds** -- EAS compiles native binaries in the cloud (no local Xcode/Android Studio needed)
 - **Version management** -- `npm run version:patch/minor/major` to bump `app.json`
-- **Starter code** -- Home screen + About screen + example component with tests
+- **Starter code** -- Home screen + About screen with navigation
 - **Store setup guides** -- step-by-step docs for Apple Developer, Google Play Console, and EAS
 - **Template setup** -- auto-creates setup checklist issue on first use
 

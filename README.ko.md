@@ -39,11 +39,8 @@ npx expo start
 │   ├── _layout.js              # 루트 레이아웃 (Stack 네비게이터)
 │   ├── index.js                # 홈 화면
 │   └── about.js                # 예시 두 번째 화면
-├── components/
-│   └── HelloWorld.js           # 간단한 예시 컴포넌트
 ├── assets/                     # 앱 아이콘, 스플래시, 어댑티브 아이콘
-├── tests/
-│   └── components.test.js      # 컴포넌트 테스트
+├── tests/                      # 테스트 추가 위치
 ├── .github/
 │   ├── workflows/
 │   │   ├── ci.yml              # 린트, 테스트, 감사
@@ -70,7 +67,7 @@ npx expo start
 - **CD 파이프라인** -- EAS Build를 통한 원클릭 App Store / Play Store 배포
 - **클라우드 빌드** -- EAS가 클라우드에서 네이티브 바이너리 컴파일 (로컬 Xcode/Android Studio 불필요)
 - **버전 관리** -- `npm run version:patch/minor/major`로 `app.json` 버전 업
-- **스타터 코드** -- 홈 화면 + About 화면 + 테스트 포함 예시 컴포넌트
+- **스타터 코드** -- 홈 화면 + About 화면 + 네비게이션
 - **스토어 설정 가이드** -- Apple Developer, Google Play Console, EAS 단계별 문서
 - **템플릿 셋업** -- 첫 사용 시 설정 체크리스트 이슈 자동 생성
 

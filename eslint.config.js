@@ -19,7 +19,6 @@ module.exports = [
         setInterval: 'readonly',
         clearInterval: 'readonly',
         fetch: 'readonly',
-        alert: 'readonly',
       },
       parserOptions: {
         ecmaFeatures: {
