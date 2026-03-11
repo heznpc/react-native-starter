@@ -1,4 +1,5 @@
 const js = require('@eslint/js');
+const globals = require('globals');
 
 module.exports = [
   js.configs.recommended,
@@ -8,16 +9,7 @@ module.exports = [
       ecmaVersion: 2022,
       sourceType: 'module',
       globals: {
-        console: 'readonly',
-        module: 'readonly',
-        require: 'readonly',
-        exports: 'readonly',
-        process: 'readonly',
-        __dirname: 'readonly',
-        setTimeout: 'readonly',
-        clearTimeout: 'readonly',
-        setInterval: 'readonly',
-        clearInterval: 'readonly',
+        ...globals.node,
         fetch: 'readonly',
       },
       parserOptions: {
