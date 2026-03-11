@@ -1,0 +1,65 @@
+name: Deploy to Play Store
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  ci:
+    uses: ./.github/workflows/ci.yml
+
+  build:
+    needs: ci
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Extract version
+        id: version
+        run: |
+          VERSION=$(node -e "console.log(JSON.parse(require('fs').readFileSync('app.json','utf8')).expo.version)")
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Deploying v$VERSION"
+
+      - name: Version guard
+        run: |
+          if git rev-parse "v${{ steps.version.outputs.version }}-android" >/dev/null 2>&1; then
+            echo "::error::Tag v${{ steps.version.outputs.version }}-android already exists. Bump the version first: npm run version:patch"
+            exit 1
+          fi
+
+      - name: Setup Expo CLI
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Build Android
+        run: eas build --platform android --profile production --non-interactive
+
+      - name: Submit to Play Store
+        run: eas submit --platform android --profile production --non-interactive
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.version }}-android
+          name: v${{ steps.version.outputs.version }} (Android)
+          body: |
+            ## Play Store Deployment
+
+            - **Version:** ${{ steps.version.outputs.version }}
+            - **Platform:** Android
+            - **Track:** internal
+            - **Deployed by:** @${{ github.actor }}
+          generate_release_notes: true
